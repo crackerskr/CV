@@ -1,17 +1,23 @@
-// src/main.js
+// Import CSS so Vite bundles it
+import '../styles/style.css';
 
-// Import everything from components via index.js
-import * as components from "./components/index.js";
+// Import all components via barrel file
+import * as components from './components/index.js';
 
-// Render profile section
+// ---------------- Render CV Sections ---------------- //
+
+// Render the profile (static)
 components.renderProfile();
 
 // Add icons to card titles
 components.renderCardTitle();
 
-// Render dynamic sections
+// Render all dynamic sections
 components.renderExperience();
 components.renderEducation();
 components.renderSkills();
 components.renderProjects();
 components.renderAwards();
+
+// --------------- Setup Theme Toggle --------------- //
+components.setupThemeToggle();

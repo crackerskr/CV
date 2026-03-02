@@ -1,14 +1,14 @@
 {
-  "name": "cv",
-  "version": "1.0.0",
-  "description": "Personal CV site ready for GitHub Pages",
+  "name": "cv_vite",
+  "private": true,
+  "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "serve . -l 5500",
-    "start": "serve . -l 5500"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "devDependencies": {
-    "mkdirp": "^1.0.4",
-    "serve": "^14.2.0"
+    "vite": "^7.3.1"
   }
 }

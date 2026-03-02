@@ -10,12 +10,8 @@ collapsibleCards.forEach(card => {
     const content = this.querySelector(".content");
     if (content.style.maxHeight) {
       content.style.maxHeight = null;
-      content.style.paddingTop = "0";
-      content.style.paddingBottom = "0";
     } else {
       content.style.maxHeight = content.scrollHeight + "px";
-      content.style.paddingTop = "15px";
-      content.style.paddingBottom = "15px";
     }
   });
 });
