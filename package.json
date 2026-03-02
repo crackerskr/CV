@@ -1,0 +1,14 @@
+{
+  "name": "cv",
+  "version": "1.0.0",
+  "description": "Personal CV site ready for GitHub Pages",
+  "type": "module",
+  "scripts": {
+    "dev": "serve . -l 5500",
+    "start": "serve . -l 5500"
+  },
+  "devDependencies": {
+    "mkdirp": "^1.0.4",
+    "serve": "^14.2.0"
+  }
+}
