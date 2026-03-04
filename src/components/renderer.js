@@ -3,6 +3,7 @@ import {
   education,
   experience,
   skills,
+  skillLevels,
   projects,
   awards
 } from "../data/index.js";
@@ -17,19 +18,87 @@ const sectionIcons = {
 };
 
 /* ---------------- CARD ICONS ---------------- */
-function renderCardTitle() {
+export function renderCardTitle() {
   document.querySelectorAll(".card h2").forEach(h2 => {
-    const iconClass = sectionIcons[h2.textContent.trim()];
-    if (iconClass) {
-      const i = document.createElement("i");
-      i.className = `${iconClass} section-icon`;
-      h2.prepend(i); // insert icon before the title text
+    const sectionName = h2.textContent.trim();
+    const iconClass = sectionIcons[sectionName];
+    if (!iconClass) return;
+
+    // Create section icon
+    const i = document.createElement("i");
+    i.className = `${iconClass} section-icon`;
+
+    // Wrapper for the header
+    const wrapper = document.createElement("div");
+    if (sectionName === "Skills") {
+      wrapper.className = "skills-header-wrapper";
+    } else {
+      wrapper.className = ""; // no class here for normal sections
     }
+
+    // Left group: icon + text
+    const leftGroup = document.createElement("div");
+    leftGroup.className = "title-left";
+    leftGroup.appendChild(i);
+
+    const textSpan = document.createElement("span");
+    textSpan.innerText = sectionName;
+    leftGroup.appendChild(textSpan);
+
+    wrapper.appendChild(leftGroup);
+
+    // Skills tooltip (if Skills section)
+    if (sectionName === "Skills") {
+      const tooltipIcon = document.createElement("span");
+      tooltipIcon.className = "tooltip-icon";
+      tooltipIcon.innerHTML = '<i class="fas fa-info-circle"></i>';
+
+      const tooltip = document.createElement("div");
+      tooltip.className = "skills-tooltip";
+
+      Object.values(skillLevels).forEach(level => {
+        const row = document.createElement("div");
+        row.className = "legend-row";
+        row.innerHTML = `
+      <span class="legend-color" style="background-color:${level.color}"></span>
+      <span class="legend-label">${level.label}</span>
+    `;
+        tooltip.appendChild(row);
+      });
+
+      tooltipIcon.appendChild(tooltip);
+      wrapper.appendChild(tooltipIcon);
+    }
+
+    // Replace h2 content
+    h2.innerHTML = "";
+    h2.appendChild(wrapper);
   });
 }
 
+// ---------------- SKILLS LEGEND TOOLTIP ----------------
+export function renderSkillsLegend(legendItems = []) {
+  const skillsHeader = document.querySelector(".card h2:has(.skills-header-wrapper) .skills-header-wrapper");
+  if (!skillsHeader) return;
+
+  const tooltip = document.createElement("div");
+  tooltip.className = "skills-tooltip";
+
+  legendItems.forEach(item => {
+    const legendRow = document.createElement("div");
+    legendRow.className = "legend-row";
+    legendRow.innerHTML = `
+      <span class="legend-color" style="background-color:${item.color}"></span>
+      <span class="legend-label">${item.label}</span>
+    `;
+    tooltip.appendChild(legendRow);
+  });
+
+  skillsHeader.appendChild(tooltip);
+}
+
 /* ---------------- PROFILE ---------------- */
-function renderProfile() {
+export function renderProfile() {
   // Set profile image
   const profileImg = document.getElementById("profile-img");
   profileImg.src = profile.image;
@@ -50,7 +119,7 @@ function renderProfile() {
 }
 
 /* ---------------- EDUCATION ---------------- */
-function renderEducation() {
+export function renderEducation() {
   const container = document.getElementById("education-list");
 
   education.forEach(edu => {
@@ -65,7 +134,7 @@ function renderEducation() {
 }
 
 /* ---------------- EXPERIENCE ---------------- */
-function renderExperience() {
+export function renderExperience() {
   const container = document.getElementById("experience-list");
 
   experience.forEach(job => {
@@ -87,22 +156,45 @@ function renderExperience() {
 }
 
 /* ---------------- SKILLS ---------------- */
-function renderSkills() {
+export function renderSkills() {
   const container = document.getElementById("skills-container");
+  container.innerHTML = ""; // clear previous content
 
-  const ul = document.createElement("ul");
+  skills.forEach(cat => {
+    // Category container
+    const catDiv = document.createElement("div");
+    catDiv.classList.add("skill-category");
 
-  Object.entries(skills).forEach(([category, items]) => {
-    const li = document.createElement("li");
-    li.innerHTML = `<strong>${category}:</strong> ${items.join(", ")}`;
-    ul.appendChild(li);
+    // Category title
+    const title = document.createElement("h3");
+    title.innerText = cat.category;
+    catDiv.appendChild(title);
+
+    // Skill list
+    const list = document.createElement("div");
+    list.classList.add("skill-list");
+
+    cat.items.forEach(skill => {
+      const span = document.createElement("span");
+      span.classList.add("skill-badge");
+      span.innerText = skill.name;
+
+      // Apply background color dynamically from skillLevels
+      const level = skill.level;
+      if (skillLevels[level]) {
+        span.style.backgroundColor = skillLevels[level].color;
+      }
+
+      list.appendChild(span);
+    });
+
+    catDiv.appendChild(list);
+    container.appendChild(catDiv);
   });
-
-  container.appendChild(ul);
 }
 
 /* ---------------- PROJECTS ---------------- */
-function renderProjects() {
+export function renderProjects() {
   const container = document.getElementById("projects-list");
 
   projects.forEach(project => {
@@ -120,7 +212,7 @@ function renderProjects() {
 }
 
 /* ---------------- AWARDS ---------------- */
-function renderAwards() {
+export function renderAwards() {
   const container = document.getElementById("awards-list");
 
   awards.forEach(award => {
@@ -135,14 +227,4 @@ function renderAwards() {
 
     container.appendChild(li);
   });
-}
-
-export {
-  renderCardTitle,
-  renderProfile,
-  renderEducation,
-  renderExperience,
-  renderSkills,
-  renderProjects,
-  renderAwards
 }
