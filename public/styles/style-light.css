@@ -179,6 +179,37 @@ body.light-theme #profile-img {
   border: 4px solid #0077cc; /* light theme accent */
 }
 
+#profile-title {
+  font-size: 1.5rem;      /* bigger than bio */
+  margin-top: 10px;
+  color: #aaa;
+  font-weight: 500;
+}
+
+#profile-bio {
+  font-size: 0.8rem;
+  color: #ccc;
+  margin: 10px auto 20px; /* auto left/right centers the div */
+  max-width: 600px;       /* optional: prevent it from being too wide */
+  line-height: 1.3;
+  text-align: left;
+}
+
+#profile-bio p {
+  margin: 6px 0;
+  position: relative;
+  padding-left: 16px;
+}
+
+/* Add a small colored bullet for each line */
+#profile-bio p::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #00bcd4; /* accent color */
+  font-size: 1rem;
+  line-height: 1.6;
+}
 
 /* Skills header wrapper */
 .skills-header-wrapper {

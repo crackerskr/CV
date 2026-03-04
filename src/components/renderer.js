@@ -107,8 +107,23 @@ export function renderProfile() {
   document.getElementById("profile-name").innerText = profile.name;
   document.getElementById("profile-title").innerText = profile.title;
 
-  const linkContainer = document.getElementById("profile-links");
+  // Set profile bio
+  const bioContainer = document.getElementById("profile-bio");
+  bioContainer.innerHTML = ""; // clear previous content
 
+  if (Array.isArray(profile.bio)) {
+    profile.bio.forEach(line => {
+      const p = document.createElement("p");
+      p.innerText = line;
+      bioContainer.appendChild(p);
+    });
+  } else {
+    bioContainer.innerText = profile.bio;
+  }
+
+  // Set contacts
+  const linkContainer = document.getElementById("profile-links");
+  linkContainer.innerHTML = "";
   profile.contacts.forEach(contact => {
     const a = document.createElement("a");
     a.href = contact.link;

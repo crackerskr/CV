@@ -1,6 +1,11 @@
 export const profile = {
   name: "Tong Wei Ling",
   title: "Software Engineer",
+  bio: [
+    "Passionate software engineer with 2 years of experience building full-stack applications.",
+    "Skilled in TypeScript, Node.js, and modern web technologies.",
+    "Always eager to learn and tackle challenging projects."
+  ],
   image: `${import.meta.env.BASE_URL}images/profile.jpeg`,
   contacts: [
     {
