@@ -1,23 +1,17 @@
-// Import CSS so Vite bundles it
-import '../styles/style.css';
+// Import main CSS (dark theme default)
+import '../public/styles/style.css';
 
-// Import all components via barrel file
+// Import all components
 import * as components from './components/index.js';
 
-// ---------------- Render CV Sections ---------------- //
+// Setup theme toggle first
+components.setupThemeToggle();
 
-// Render the profile (static)
+// Render CV
 components.renderProfile();
-
-// Add icons to card titles
 components.renderCardTitle();
-
-// Render all dynamic sections
-components.renderExperience();
 components.renderEducation();
+components.renderExperience();
 components.renderSkills();
 components.renderProjects();
 components.renderAwards();
-
-// --------------- Setup Theme Toggle --------------- //
-components.setupThemeToggle();

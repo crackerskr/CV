@@ -1,7 +1,7 @@
 export const profile = {
   name: "Tong Wei Ling",
   title: "Software Engineer",
-  image: "/images/profile.jpeg",
+  image: `${import.meta.env.BASE_URL}images/profile.jpeg`,
   contacts: [
     {
       type: "email",
